@@ -1,21 +1,40 @@
-pipeline {
-    agent any
+pipeline{
+  agent any
+  tools {
+    maven 'maven'
+  }
+  
+  stages{
     
-    stages {
-        stage('Build') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t springboot-app .'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'docker compose up -d'
-            }
+    stage("Clean up"){
+        steps {
+          deleteDir()
         }
     }
+    
+    stage("Clone repo"){
+      steps {
+        sh "git clone https://github.com/ineshajjem/backend-master.git"
+      }
+    }
+    
+    stage("Generate image") {
+      steps {
+        dir("backend-master"){
+          sh "mvn clean install"
+          sh "docker build -t tp2jenk ."
+        }
+      }
+    }
+    
+    stage("Run docker compose") {
+      steps {
+       dir("backend-master"){
+         sh "docker compose up -d"
+       }
+      }
+    }
+
+    
+  }
 }
