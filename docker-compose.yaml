@@ -1,7 +1,11 @@
-version: "3.8"
 services:
-
-    spring-boot-app:
-        image: tp2jenk
-        ports:
-            - "0.0.0.0:8084:8080"
+  spring-boot-app:
+    image: tp2jenk
+    container_name: spring-app
+    ports:
+      - "8080:8080"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command: ["--spring.output.ansi.enabled=ALWAYS"]
