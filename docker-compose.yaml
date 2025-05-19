@@ -3,4 +3,4 @@ services:
   spring-boot-app:
     image: springboot-app
     ports:
-      - "8080:8080"
+      - "8084:8080"
