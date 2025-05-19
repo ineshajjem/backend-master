@@ -34,16 +34,6 @@ pipeline{
        }
       }
     }
-    stage('View Logs') {
-    steps {
-        sh '''
-        docker ps
-        container_id=$(docker ps -lq)
-        docker logs -f $container_id &
-        sleep 30  # Attendre 30s pour voir les logs
-        '''
-    }
-}
 
     
   }
