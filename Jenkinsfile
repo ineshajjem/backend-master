@@ -14,13 +14,13 @@ pipeline{
     
     stage("Clone repo"){
       steps {
-        sh "git clone https://github.com/ineshajjem/tp2jenkins.git"
+        sh "git clone https://github.com/ineshajjem/backend-master.git"
       }
     }
     
     stage("Generate image") {
       steps {
-        dir("tp2jenkins"){
+        dir("backend-master"){
           sh "mvn clean install"
           sh "docker build -t tp2jenk ."
         }
@@ -29,7 +29,7 @@ pipeline{
     
     stage("Run docker compose") {
       steps {
-       dir("tp2jenkins"){
+       dir("backend-master"){
          sh "docker compose up -d"
        }
       }
@@ -38,3 +38,4 @@ pipeline{
     
   }
 }
+
