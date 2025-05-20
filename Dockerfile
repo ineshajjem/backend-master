@@ -1,6 +1,4 @@
 FROM adoptopenjdk:11-jre-hotspot
-VOLUME /tmp
-ADD target/*.jar app.jar
-EXPOSE 8084
-CMD ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
-
+WORKDIR /app
+COPY target/api_etudiant-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
